@@ -1,16 +1,116 @@
 {
+  "1": {
+    "explorerURL": "https://etherscan.io"
+  },
+  "10": {
+    "explorerURL": "https://optimistic.etherscan.io"
+  },
+  "42": {
+    "explorerURL": "https://kovan.etherscan.io"
+  },
+  "56": {
+    "explorerURL": "https://bscscan.com"
+  },
+  "97": {
+    "explorerURL": "https://testnet.bscscan.com"
+  },
+  "137": {
+    "explorerURL": "https://polygonscan.com"
+  },
+  "8453": {
+    "explorerURL": "https://basescan.org"
+  },
   "31337": {
     "exchange": {
-      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     },
     "cfyt": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     },
-    "mETH": {
-      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
-    },
-    "mDAI": {
+    "explorerURL": "#",
+    "WETH": {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    },
+    "USDT": {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+    },
+    "USDC": {
+      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+    },
+    "WBTC": {
+      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+    },
+    "LINK": {
+      "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+    },
+    "UNI": {
+      "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+    },
+    "DAI": {
+      "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+    },
+    "SHIB": {
+      "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318"
+    },
+    "PEPE": {
+      "address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788"
+    },
+    "AAVE": {
+      "address": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"
     }
+  },
+  "42161": {
+    "explorerURL": "https://arbiscan.io"
+  },
+  "80002": {
+    "explorerURL": "https://amoy.polygonscan.com"
+  },
+  "84532": {
+    "explorerURL": "https://sepolia.basescan.org"
+  },
+  "421614": {
+    "explorerURL": "https://sepolia.arbiscan.io"
+  },
+  "11155111": {
+    "explorerURL": "https://sepolia.etherscan.io",
+    "exchange": {
+      "address": "0x2D5aA578781e5BA63571489C859EF6855e24471f"
+    },
+    "cfyt": {
+      "address": "0xFd147FcCb4B91120650230F33b7dce896C39CFAb"
+    },
+    "WETH": {
+      "address": "0x05CeabfDDC6A8287F6C36f297f3948630Cca34bd"
+    },
+    "USDT": {
+      "address": "0x06c34E336f8c6B38ED9Ac3CA3159804a933F1d0f"
+    },
+    "USDC": {
+      "address": "0x8a9c325aaeDfa842fC9782Ab57f97FCB57b1CC2E"
+    },
+    "WBTC": {
+      "address": "0x3d8AD666eeffb289b5DD7fD8431fa69Edd991Eef"
+    },
+    "LINK": {
+      "address": "0x7aA601Dc2c5Cbd12aADd17D6D6A1780FFfc44afA"
+    },
+    "UNI": {
+      "address": "0xCbbf85886d92efE5A00140f12fA97Db31C0263DF"
+    },
+    "DAI": {
+      "address": "0xdda22a9BEF1daedb0e29d1810f3e121faD6144d0"
+    },
+    "SHIB": {
+      "address": "0xD45b4b682D736D42A9B5aDd009511584a03271A1"
+    },
+    "PEPE": {
+      "address": "0x628b7bA0eE232Aa53190b280Cad2796FD72e6A36"
+    },
+    "AAVE": {
+      "address": "0xefc5D1530B064AD03564516fFeBA1CB763254E25"
+    }
+  },
+  "11155420": {
+    "explorerURL": "https://sepolia-optimism.etherscan.io"
   }
 }
