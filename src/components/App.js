@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import '../App.css';
 import Exchange from './Exchange';
+import { getEthereumProvider, loadProvider, loadAccount } from '../store/interactions';
 
 /* ──────────────────────────────────────────────
    DATA
@@ -119,6 +121,7 @@ function App() {
     window.location.hash === '#exchange' ? 'exchange' : 'home'
   );
 
+  const dispatch = useDispatch();
   const scrollRef = useScrollReveal();
 
   const openExchange = () => {
@@ -129,6 +132,22 @@ function App() {
   const openHome = () => {
     window.location.hash = '';
     setView('home');
+  };
+
+  // Connect wallet via MetaMask then navigate to exchange
+  const connectAndLaunch = async () => {
+    const ethereumProvider = getEthereumProvider();
+    if (!ethereumProvider) {
+      alert('MetaMask (or a compatible wallet) is not installed. Please install MetaMask to connect.');
+      return;
+    }
+    try {
+      const provider = loadProvider(dispatch);
+      await loadAccount(provider, dispatch, true);
+      openExchange();
+    } catch (err) {
+      console.error('Wallet connection failed:', err);
+    }
   };
 
   if (view === 'exchange') {
@@ -229,7 +248,7 @@ function App() {
               <span>0.5%</span>
             </div>
 
-            <button className="swap-widget__cta" type="button" onClick={openExchange}>
+            <button className="swap-widget__cta" type="button" onClick={connectAndLaunch}>
               Connect Wallet
             </button>
           </div>

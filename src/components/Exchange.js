@@ -1,9 +1,7 @@
 import { useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import config from '../config.json';
 import '../Exchange.css';
-
-
 
 import {
   loadProvider,
@@ -30,6 +28,8 @@ import Alert from './Alert'
 function Exchange({ onBack }) {
 
  const dispatch = useDispatch()
+ const account = useSelector(state => state.provider.account)
+ const symbols = useSelector(state => state.tokens.symbols)
 
   const loadBlockchainData = useCallback(async () => {
     // Connect Ethers to blockchain
@@ -112,29 +112,61 @@ function Exchange({ onBack }) {
   }, [loadBlockchainData])
 
   return (
-    <div>
+    <div className="exchange-shell">
 
       <Navbar onBack={onBack} />
 
+      {/* Binance-style Ticker Bar */}
+      <div className="ticker-bar">
+        <div className="ticker-bar__inner">
+          <div className="ticker-bar__pair">
+            <span className="ticker-bar__symbol">{symbols ? `${symbols[0]}/${symbols[1]}` : 'CFYT/WETH'}</span>
+          </div>
+          <div className="ticker-bar__stats">
+            <div className="ticker-stat">
+              <span className="ticker-stat__label">24h Vol</span>
+              <span className="ticker-stat__value">—</span>
+            </div>
+            <div className="ticker-stat">
+              <span className="ticker-stat__label">24h High</span>
+              <span className="ticker-stat__value">—</span>
+            </div>
+            <div className="ticker-stat">
+              <span className="ticker-stat__label">24h Low</span>
+              <span className="ticker-stat__value">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <main className='exchange grid'>
+        {/* LEFT PANEL: Markets + Order Book */}
         <section className='exchange__section--left'>
 
           <Markets />
 
-          <Balance />
-
-          <Order />
+          <OrderBook />
 
         </section>
-        <section className='exchange__section--right grid'>
+
+        {/* CENTER: Chart + Trade History + My Transactions */}
+        <section className='exchange__section--center'>
 
           <PriceChart />
 
-          <Transactions />
+          <div className="exchange__bottom-panels">
+            <Transactions />
+            <Trades />
+          </div>
 
-          <Trades />
+        </section>
 
-          <OrderBook />
+        {/* RIGHT PANEL: Balance + Buy/Sell Order */}
+        <section className='exchange__section--right'>
+
+          <Balance />
+
+          <Order />
 
         </section>
       </main>
