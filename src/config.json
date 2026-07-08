@@ -24,7 +24,7 @@
     "exchange": {
       "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     },
-    "cfyt": {
+    "btf": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     },
     "explorerURL": "#",
@@ -76,7 +76,7 @@
     "exchange": {
       "address": "0x2D5aA578781e5BA63571489C859EF6855e24471f"
     },
-    "cfyt": {
+    "btf": {
       "address": "0xFd147FcCb4B91120650230F33b7dce896C39CFAb"
     },
     "WETH": {

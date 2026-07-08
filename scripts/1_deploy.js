@@ -10,10 +10,10 @@ async function main() {
 
   console.log(`Accounts fetched:\n${accounts[0].address}\n${accounts[1].address}\n`)
 
-  const cfyt = await Token.deploy("CFY Token", "CFYT", "21000000")
-  await cfyt.waitForDeployment()
-  const cfytAddress = await cfyt.getAddress()
-  console.log(`CFYT Deployed to: ${cfytAddress}`)
+  const btf = await Token.deploy("BitFinance Token", "BTF", "21000000")
+  await btf.waitForDeployment()
+  const btfAddress = await btf.getAddress()
+  console.log(`BTF Deployed to: ${btfAddress}`)
 
   const exchange = await Exchange.deploy(accounts[1].address, 1)
   await exchange.waitForDeployment()
@@ -139,7 +139,7 @@ async function main() {
     : {}
 
   const currentDeployment = {
-    cfyt: cfytAddress,
+    btf: btfAddress,
     exchange: exchangeAddress,
     ...tokenAddresses
   }
@@ -157,7 +157,7 @@ async function main() {
     configData[chainId.toString()] = {
       ...configData[chainId.toString()],
       exchange: { address: exchangeAddress },
-      cfyt: { address: cfytAddress }
+      btf: { address: btfAddress }
     }
 
     // Add each deployed token configuration

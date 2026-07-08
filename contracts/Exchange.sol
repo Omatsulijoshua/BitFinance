@@ -7,8 +7,14 @@ interface IERC20 {
 }
 
 contract Exchange {
+    address public owner;
     address public feeAccount;
     uint256 public feePercent;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "caller is not the owner");
+        _;
+    }
     mapping(address => mapping(address => uint256)) public tokens;
     mapping(uint256 => OrderData) public orders;
     uint256 public orderCount;
@@ -60,6 +66,16 @@ contract Exchange {
         require(_feeAccount != address(0), "invalid fee account");
 
         feeAccount = _feeAccount;
+        feePercent = _feePercent;
+        owner = msg.sender;
+    }
+
+    function setFeeAccount(address _feeAccount) public onlyOwner {
+        require(_feeAccount != address(0), "invalid fee account");
+        feeAccount = _feeAccount;
+    }
+
+    function setFeePercent(uint256 _feePercent) public onlyOwner {
         feePercent = _feePercent;
     }
 

@@ -12,7 +12,7 @@ describe("Token", () => {
 
   beforeEach(async () => {
     const Token = await ethers.getContractFactory("Token")
-    token = await Token.deploy("CFY Token", "CFYT", "21000000")
+    token = await Token.deploy("BitFinance Token", "BTF", "21000000")
     await token.waitForDeployment()
 
     ;[deployer, receiver, exchange] = await ethers.getSigners()
@@ -20,8 +20,8 @@ describe("Token", () => {
 
   describe("Deployment", () => {
     it("has correct metadata", async () => {
-      expect(await token.name()).to.equal("CFY Token")
-      expect(await token.symbol()).to.equal("CFYT")
+      expect(await token.name()).to.equal("BitFinance Token")
+      expect(await token.symbol()).to.equal("BTF")
       expect(await token.decimals()).to.equal(18n)
     })
 

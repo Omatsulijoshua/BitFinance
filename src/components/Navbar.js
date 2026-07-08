@@ -200,8 +200,8 @@ const Navbar = ({ onBack }) => {
               ←
             </button>
             )}
-            <img src={logo} className="logo" alt="Crypfinance Logo"></img>
-            <h1>CRYPFINANCE</h1>
+            <img src={logo} className="logo" alt="BitFinance Logo"></img>
+            <h1>BITFINANCE</h1>
           </div>
 
           {chainId && (

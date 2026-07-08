@@ -74,7 +74,7 @@ const makeOpenOrder = async (exchange, maker, tokenGet, amountGet, tokenGive, am
 }
 
 const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, deployment, traders, isLocalhost) => {
-  console.log(`Seeding trades for CFYT / ${tokenQuoteName} market...`)
+  console.log(`Seeding trades for BTF / ${tokenQuoteName} market...`)
   let hourlyBasePrices = [
     8.4, 8.8, 9.1, 9.7, 10.2, 10.8, 10.4, 10.9,
     11.5, 12.0, 11.6, 12.4, 12.9, 13.3, 12.7, 13.6,
@@ -100,30 +100,30 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, deploymen
       const price = Math.max(1, hourlyBasePrices[hour] + intrahourMoves[index])
       const amountGet = Number((amountGive * price).toFixed(4))
 
-      // Alternate between Maker Selling CFYT (maker gives CFYT, gets Quote)
-      // and Maker Buying CFYT (maker gives Quote, gets CFYT)
+      // Alternate between Maker Selling BTF (maker gives BTF, gets Quote)
+      // and Maker Buying BTF (maker gives Quote, gets BTF)
       const isBuy = (hour + index) % 2 === 0
 
       if (isBuy) {
-        // Maker buys CFYT (gives Quote, gets CFYT)
+        // Maker buys BTF (gives Quote, gets BTF)
         await makeAndFillOrder(
           exchange,
           maker,
           filler,
-          deployment.cfyt,
+          deployment.btf,
           tokens(amountGive),
           tokenQuoteAddress,
           tokens(amountGet)
         )
       } else {
-        // Maker sells CFYT (gives CFYT, gets Quote)
+        // Maker sells BTF (gives BTF, gets Quote)
         await makeAndFillOrder(
           exchange,
           maker,
           filler,
           tokenQuoteAddress,
           tokens(amountGet),
-          deployment.cfyt,
+          deployment.btf,
           tokens(amountGive)
         )
       }
@@ -136,11 +136,11 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, deploymen
     }
 
     await increaseTime(60 * 60)
-    console.log(`  Seeded candle ${hour + 1}/${hourlyBasePrices.length} for CFYT / ${tokenQuoteName}`)
+    console.log(`  Seeded candle ${hour + 1}/${hourlyBasePrices.length} for BTF / ${tokenQuoteName}`)
   }
 
-  console.log(`Seeding open orders for CFYT / ${tokenQuoteName}...`)
-  // Open Sell Orders (Maker gives CFYT, wants Quote)
+  console.log(`Seeding open orders for BTF / ${tokenQuoteName}...`)
+  // Open Sell Orders (Maker gives BTF, wants Quote)
   for (let i = 1; i <= orderLimit; i++) {
     const maker = traders[i % traders.length]
     const amountGive = 8 + (i % 6)
@@ -151,12 +151,12 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, deploymen
       maker,
       tokenQuoteAddress,
       tokens(amountGet),
-      deployment.cfyt,
+      deployment.btf,
       tokens(amountGive)
     )
   }
 
-  // Open Buy Orders (Maker gives Quote, wants CFYT)
+  // Open Buy Orders (Maker gives Quote, wants BTF)
   for (let i = 1; i <= orderLimit; i++) {
     const maker = traders[(i + 2) % traders.length]
     const amountGet = 7 + (i % 5)
@@ -165,14 +165,14 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, deploymen
     await makeOpenOrder(
       exchange,
       maker,
-      deployment.cfyt,
+      deployment.btf,
       tokens(amountGet),
       tokenQuoteAddress,
       tokens(amountGive)
     )
   }
   
-  console.log(`Completed CFYT / ${tokenQuoteName} market seed. Filled: ${filledTradeCount}, Open: ${orderLimit * 2}\n`)
+  console.log(`Completed BTF / ${tokenQuoteName} market seed. Filled: ${filledTradeCount}, Open: ${orderLimit * 2}\n`)
 }
 
 async function main() {
@@ -190,9 +190,9 @@ async function main() {
 
   const deployment = await loadDeployment()
 
-  await requireContract("CFYT", deployment.cfyt)
-  const cfyt = await ethers.getContractAt("Token", deployment.cfyt)
-  console.log(`CFYT Fetched: ${deployment.cfyt}`)
+  await requireContract("BTF", deployment.btf)
+  const btf = await ethers.getContractAt("Token", deployment.btf)
+  console.log(`BTF Fetched: ${deployment.btf}`)
 
   await requireContract("Exchange", deployment.exchange)
   const exchange = await ethers.getContractAt("Exchange", deployment.exchange)
@@ -225,13 +225,13 @@ async function main() {
   }
 
   for (const trader of uniqueTraders) {
-    // Fund and deposit CFYT
-    const deployerBalance = await cfyt.balanceOf(deployer.address)
-    console.log(`Deployer CFYT balance: ${ethers.formatEther(deployerBalance)} CFYT`)
-    console.log(`Deposit Amount requested: ${ethers.formatEther(depositAmount)} CFYT to ${trader.address}`)
-    await (await cfyt.connect(deployer).transfer(trader.address, depositAmount)).wait()
-    await (await cfyt.connect(trader).approve(deployment.exchange, depositAmount)).wait()
-    await (await exchange.connect(trader).depositToken(deployment.cfyt, depositAmount)).wait()
+    // Fund and deposit BTF
+    const deployerBalance = await btf.balanceOf(deployer.address)
+    console.log(`Deployer BTF balance: ${ethers.formatEther(deployerBalance)} BTF`)
+    console.log(`Deposit Amount requested: ${ethers.formatEther(depositAmount)} BTF to ${trader.address}`)
+    await (await btf.connect(deployer).transfer(trader.address, depositAmount)).wait()
+    await (await btf.connect(trader).approve(deployment.exchange, depositAmount)).wait()
+    await (await exchange.connect(trader).depositToken(deployment.btf, depositAmount)).wait()
 
     // Fund and deposit each quote token that was deployed
     for (const symbol of quoteTokens) {
@@ -242,7 +242,7 @@ async function main() {
         await (await exchange.connect(trader).depositToken(deployment[symbol], depositAmount)).wait()
       }
     }
-    console.log(`Funded and deposited CFYT and quote tokens for ${trader.address}`)
+    console.log(`Funded and deposited BTF and quote tokens for ${trader.address}`)
   }
 
   console.log(`Fee account: ${feeAccount.address}\n`)
@@ -262,7 +262,7 @@ async function main() {
 
   const cancelledOrderTx = await exchange
     .connect(user1)
-    .makeOrder(activeQuoteToken, tokens(25), deployment.cfyt, tokens(10))
+    .makeOrder(activeQuoteToken, tokens(25), deployment.btf, tokens(10))
   const cancelledOrderReceipt = await cancelledOrderTx.wait()
   const cancelledOrderId = getOrderId(exchange, cancelledOrderReceipt)
   await (await exchange.connect(user1).cancelOrder(cancelledOrderId)).wait()

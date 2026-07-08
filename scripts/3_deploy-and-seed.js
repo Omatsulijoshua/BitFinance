@@ -38,8 +38,8 @@ const makeOpenOrder = async (exchange, maker, tokenGet, amountGet, tokenGive, am
   await (await exchange.connect(maker).makeOrder(tokenGet, amountGet, tokenGive, amountGive)).wait()
 }
 
-const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, cfytAddress, traders) => {
-  console.log(`Seeding trades for CFYT / ${tokenQuoteName} market...`)
+const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, btfAddress, traders) => {
+  console.log(`Seeding trades for BTF / ${tokenQuoteName} market...`)
   const hourlyBasePrices = [
     8.4, 8.8, 9.1, 9.7, 10.2, 10.8, 10.4, 10.9,
     11.5, 12.0, 11.6, 12.4, 12.9, 13.3, 12.7, 13.6,
@@ -60,25 +60,25 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, cfytAddre
       const isBuy = (hour + index) % 2 === 0
 
       if (isBuy) {
-        // Maker buys CFYT (gives Quote, gets CFYT)
+        // Maker buys BTF (gives Quote, gets BTF)
         await makeAndFillOrder(
           exchange,
           maker,
           filler,
-          cfytAddress,
+          btfAddress,
           tokens(amountGive),
           tokenQuoteAddress,
           tokens(amountGet)
         )
       } else {
-        // Maker sells CFYT (gives CFYT, gets Quote)
+        // Maker sells BTF (gives BTF, gets Quote)
         await makeAndFillOrder(
           exchange,
           maker,
           filler,
           tokenQuoteAddress,
           tokens(amountGet),
-          cfytAddress,
+          btfAddress,
           tokens(amountGive)
         )
       }
@@ -91,11 +91,11 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, cfytAddre
     }
 
     await increaseTime(60 * 60)
-    console.log(`  Seeded candle ${hour + 1}/${hourlyBasePrices.length} for CFYT / ${tokenQuoteName}`)
+    console.log(`  Seeded candle ${hour + 1}/${hourlyBasePrices.length} for BTF / ${tokenQuoteName}`)
   }
 
-  console.log(`Seeding open orders for CFYT / ${tokenQuoteName}...`)
-  // Open Sell Orders (Maker gives CFYT, wants Quote)
+  console.log(`Seeding open orders for BTF / ${tokenQuoteName}...`)
+  // Open Sell Orders (Maker gives BTF, wants Quote)
   for (let i = 1; i <= 15; i++) {
     const maker = traders[i % traders.length]
     const amountGive = 8 + (i % 6)
@@ -106,12 +106,12 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, cfytAddre
       maker,
       tokenQuoteAddress,
       tokens(amountGet),
-      cfytAddress,
+      btfAddress,
       tokens(amountGive)
     )
   }
 
-  // Open Buy Orders (Maker gives Quote, wants CFYT)
+  // Open Buy Orders (Maker gives Quote, wants BTF)
   for (let i = 1; i <= 15; i++) {
     const maker = traders[(i + 2) % traders.length]
     const amountGet = 7 + (i % 5)
@@ -120,14 +120,14 @@ const seedMarket = async (exchange, tokenQuoteAddress, tokenQuoteName, cfytAddre
     await makeOpenOrder(
       exchange,
       maker,
-      cfytAddress,
+      btfAddress,
       tokens(amountGet),
       tokenQuoteAddress,
       tokens(amountGive)
     )
   }
   
-  console.log(`Completed CFYT / ${tokenQuoteName} market seed. Filled: ${filledTradeCount}, Open: 30\n`)
+  console.log(`Completed BTF / ${tokenQuoteName} market seed. Filled: ${filledTradeCount}, Open: 30\n`)
 }
 
 async function main() {
@@ -140,10 +140,10 @@ async function main() {
   const [deployer, feeAccount, user1, user2, user3, user4] = accounts
   console.log(`Accounts fetched:\nDeployer: ${deployer.address}\nFee Account: ${feeAccount.address}\n`)
 
-  const cfyt = await Token.deploy("CFY Token", "CFYT", "21000000")
-  await cfyt.waitForDeployment()
-  const cfytAddress = await cfyt.getAddress()
-  console.log(`CFYT Deployed to: ${cfytAddress}`)
+  const btf = await Token.deploy("BitFinance Token", "BTF", "21000000")
+  await btf.waitForDeployment()
+  const btfAddress = await btf.getAddress()
+  console.log(`BTF Deployed to: ${btfAddress}`)
 
   // Split fee: 0.5% for maker, 0.5% for taker
   const exchange = await Exchange.deploy(feeAccount.address, 1)
@@ -183,7 +183,7 @@ async function main() {
     : {}
 
   const currentDeployment = {
-    cfyt: cfytAddress,
+    btf: btfAddress,
     exchange: exchangeAddress,
     ...tokenAddresses
   }
@@ -199,7 +199,7 @@ async function main() {
     configData[chainIdStr] = {
       ...configData[chainIdStr],
       exchange: { address: exchangeAddress },
-      cfyt: { address: cfytAddress }
+      btf: { address: btfAddress }
     }
 
     for (const symbol of Object.keys(tokenAddresses)) {
@@ -221,10 +221,10 @@ async function main() {
   const depositAmount = tokens(250000)
 
   for (const trader of traders) {
-    // Fund and deposit CFYT
-    await (await cfyt.connect(deployer).transfer(trader.address, depositAmount)).wait()
-    await (await cfyt.connect(trader).approve(exchangeAddress, depositAmount)).wait()
-    await (await exchange.connect(trader).depositToken(cfytAddress, depositAmount)).wait()
+    // Fund and deposit BTF
+    await (await btf.connect(deployer).transfer(trader.address, depositAmount)).wait()
+    await (await btf.connect(trader).approve(exchangeAddress, depositAmount)).wait()
+    await (await exchange.connect(trader).depositToken(btfAddress, depositAmount)).wait()
 
     // Fund and deposit quote tokens
     for (const symbol of Object.keys(tokenAddresses)) {
@@ -241,7 +241,7 @@ async function main() {
   const activeQuoteToken = tokenAddresses["WETH"]
   const cancelledOrderTx = await exchange
     .connect(user1)
-    .makeOrder(activeQuoteToken, tokens(25), cfytAddress, tokens(10))
+    .makeOrder(activeQuoteToken, tokens(25), btfAddress, tokens(10))
   const cancelledOrderReceipt = await cancelledOrderTx.wait()
   const cancelledOrderId = getOrderId(exchange, cancelledOrderReceipt)
   await (await exchange.connect(user1).cancelOrder(cancelledOrderId)).wait()
@@ -251,7 +251,7 @@ async function main() {
   const primaryMarkets = ["WETH", "USDT", "USDC"]
   for (const symbol of primaryMarkets) {
     if (tokenAddresses[symbol]) {
-      await seedMarket(exchange, tokenAddresses[symbol], symbol, cfytAddress, traders)
+      await seedMarket(exchange, tokenAddresses[symbol], symbol, btfAddress, traders)
     }
   }
 

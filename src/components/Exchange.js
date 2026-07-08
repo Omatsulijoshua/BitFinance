@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import config from '../config.json';
 import '../Exchange.css';
@@ -24,9 +24,14 @@ import Trades from './Trades'
 import OrderBook from './OrderBook'
 import Alert from './Alert'
 
+import SwapWidget from './SwapWidget'
+import AdminDashboard from './AdminDashboard'
+import LivePrices from './LivePrices'
+
 
 function Exchange({ onBack }) {
 
+ const [exchangeView, setExchangeView] = useState('trade')
  const dispatch = useDispatch()
  const account = useSelector(state => state.provider.account)
  const symbols = useSelector(state => state.tokens.symbols)
@@ -75,7 +80,7 @@ function Exchange({ onBack }) {
       return
     }
 
-    const DApp = config[chainId].cfyt
+    const DApp = config[chainId].btf
     
     // Find the first available quote token configured
     const quoteTokens = ["WETH", "USDT", "USDC", "WBTC", "LINK", "UNI", "DAI", "SHIB", "PEPE", "AAVE"]
@@ -120,7 +125,7 @@ function Exchange({ onBack }) {
       <div className="ticker-bar">
         <div className="ticker-bar__inner">
           <div className="ticker-bar__pair">
-            <span className="ticker-bar__symbol">{symbols ? `${symbols[0]}/${symbols[1]}` : 'CFYT/WETH'}</span>
+            <span className="ticker-bar__symbol">{symbols ? `${symbols[0]}/${symbols[1]}` : 'BTF/WETH'}</span>
           </div>
           <div className="ticker-bar__stats">
             <div className="ticker-stat">
@@ -139,37 +144,87 @@ function Exchange({ onBack }) {
         </div>
       </div>
 
-      <main className='exchange grid'>
-        {/* LEFT PANEL: Markets + Order Book */}
-        <section className='exchange__section--left'>
+      {/* Sub-tab Navigation */}
+      <div className="sub-tabs" style={{ display: 'flex', gap: '8px', padding: '0 24px', marginBottom: '16px', borderBottom: '1px solid var(--border)' }}>
+        <button 
+          onClick={() => setExchangeView('trade')} 
+          style={{ 
+            padding: '12px 24px', 
+            color: exchangeView === 'trade' ? 'var(--gold-400)' : 'var(--text-secondary)', 
+            borderBottom: exchangeView === 'trade' ? '2px solid var(--gold-400)' : '2px solid transparent', 
+            fontWeight: '600',
+            fontSize: '0.9rem',
+            cursor: 'pointer'
+          }}
+        >
+          📈 Trading Interface
+        </button>
+        <button 
+          onClick={() => setExchangeView('swap')} 
+          style={{ 
+            padding: '12px 24px', 
+            color: exchangeView === 'swap' ? 'var(--gold-400)' : 'var(--text-secondary)', 
+            borderBottom: exchangeView === 'swap' ? '2px solid var(--gold-400)' : '2px solid transparent', 
+            fontWeight: '600',
+            fontSize: '0.9rem',
+            cursor: 'pointer'
+          }}
+        >
+          🔄 Token Swap (Uniswap Style)
+        </button>
+        <button 
+          onClick={() => setExchangeView('admin')} 
+          style={{ 
+            padding: '12px 24px', 
+            color: exchangeView === 'admin' ? 'var(--gold-400)' : 'var(--text-secondary)', 
+            borderBottom: exchangeView === 'admin' ? '2px solid var(--gold-400)' : '2px solid transparent', 
+            fontWeight: '600',
+            fontSize: '0.9rem',
+            cursor: 'pointer'
+          }}
+        >
+          🛡️ Admin Dashboard
+        </button>
+      </div>
 
-          <Markets />
+      {exchangeView === 'trade' && (
+        <main className='exchange grid'>
+          {/* LEFT PANEL: Markets + Order Book */}
+          <section className='exchange__section--left'>
 
-          <OrderBook />
+            <Markets />
 
-        </section>
+            <OrderBook />
 
-        {/* CENTER: Chart + Trade History + My Transactions */}
-        <section className='exchange__section--center'>
+            <LivePrices />
 
-          <PriceChart />
+          </section>
 
-          <div className="exchange__bottom-panels">
-            <Transactions />
-            <Trades />
-          </div>
+          {/* CENTER: Chart + Trade History + My Transactions */}
+          <section className='exchange__section--center'>
 
-        </section>
+            <PriceChart />
 
-        {/* RIGHT PANEL: Balance + Buy/Sell Order */}
-        <section className='exchange__section--right'>
+            <div className="exchange__bottom-panels">
+              <Transactions />
+              <Trades />
+            </div>
 
-          <Balance />
+          </section>
 
-          <Order />
+          {/* RIGHT PANEL: Balance + Buy/Sell Order */}
+          <section className='exchange__section--right'>
 
-        </section>
-      </main>
+            <Balance />
+
+            <Order />
+
+          </section>
+        </main>
+      )}
+
+      {exchangeView === 'swap' && <SwapWidget />}
+      {exchangeView === 'admin' && <AdminDashboard />}
 
       <Alert />
 

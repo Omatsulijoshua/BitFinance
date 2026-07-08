@@ -22,16 +22,16 @@ const Markets = () => {
     if (!chainId || !config[chainId]) return []
     const markets = []
     
-    // 1. CFYT pairs (CFYT as base, others as quote)
-    const cfytAddress = config[chainId].cfyt?.address
-    if (cfytAddress) {
+    // 1. BTF pairs (BTF as base, others as quote)
+    const btfAddress = config[chainId].btf?.address
+    if (btfAddress) {
       const otherQuotes = ["WETH", "DAI", "USDT", "USDC", "WBTC", "LINK", "UNI", "SHIB", "PEPE", "AAVE"]
       for (const qSymbol of otherQuotes) {
         const qAddress = config[chainId][qSymbol]?.address
-        if (qAddress && qAddress.toLowerCase() !== cfytAddress.toLowerCase()) {
+        if (qAddress && qAddress.toLowerCase() !== btfAddress.toLowerCase()) {
           markets.push({
-            label: `CFYT / ${qSymbol}`,
-            val: `${cfytAddress},${qAddress}`
+            label: `BTF / ${qSymbol}`,
+            val: `${btfAddress},${qAddress}`
           })
         }
       }
@@ -43,7 +43,7 @@ const Markets = () => {
       const wethBases = ["DAI", "USDT", "USDC", "WBTC", "LINK", "UNI", "SHIB", "PEPE", "AAVE"]
       for (const bSymbol of wethBases) {
         const bAddress = config[chainId][bSymbol]?.address
-        if (bAddress && bAddress.toLowerCase() !== wethAddress.toLowerCase() && bAddress.toLowerCase() !== cfytAddress?.toLowerCase()) {
+        if (bAddress && bAddress.toLowerCase() !== wethAddress.toLowerCase() && bAddress.toLowerCase() !== btfAddress?.toLowerCase()) {
           markets.push({
             label: `${bSymbol} / WETH`,
             val: `${bAddress},${wethAddress}`
@@ -58,7 +58,7 @@ const Markets = () => {
       const daiBases = ["WETH", "USDT", "USDC", "WBTC", "LINK", "UNI", "SHIB", "PEPE", "AAVE"]
       for (const bSymbol of daiBases) {
         const bAddress = config[chainId][bSymbol]?.address
-        if (bAddress && bAddress.toLowerCase() !== daiAddress.toLowerCase() && bAddress.toLowerCase() !== cfytAddress?.toLowerCase()) {
+        if (bAddress && bAddress.toLowerCase() !== daiAddress.toLowerCase() && bAddress.toLowerCase() !== btfAddress?.toLowerCase()) {
           markets.push({
             label: `${bSymbol} / DAI`,
             val: `${bAddress},${daiAddress}`

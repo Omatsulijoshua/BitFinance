@@ -25,7 +25,7 @@ describe("Exchange", () => {
 
     ;[deployer, feeAccount, user1, user2] = await ethers.getSigners()
 
-    token1 = await Token.deploy("CFY Token", "CFYT", "21000000")
+    token1 = await Token.deploy("BitFinance Token", "BTF", "21000000")
     await token1.waitForDeployment()
 
     token2 = await Token.deploy("Mock Dai", "mDAI", "1000000")
@@ -54,6 +54,30 @@ describe("Exchange", () => {
 
     it("tracks the fee percent", async () => {
       expect(await exchange.feePercent()).to.equal(feePercent)
+    })
+
+    it("tracks the owner", async () => {
+      expect(await exchange.owner()).to.equal(deployer.address)
+    })
+  })
+
+  describe("Updating fee parameters", () => {
+    it("allows the owner to update the fee account", async () => {
+      await exchange.connect(deployer).setFeeAccount(user1.address)
+      expect(await exchange.feeAccount()).to.equal(user1.address)
+    })
+
+    it("fails when a non-owner tries to update the fee account", async () => {
+      await expect(exchange.connect(user1).setFeeAccount(user2.address)).to.be.revertedWith("caller is not the owner")
+    })
+
+    it("allows the owner to update the fee percent", async () => {
+      await exchange.connect(deployer).setFeePercent(5n)
+      expect(await exchange.feePercent()).to.equal(5n)
+    })
+
+    it("fails when a non-owner tries to update the fee percent", async () => {
+      await expect(exchange.connect(user1).setFeePercent(5n)).to.be.revertedWith("caller is not the owner")
     })
   })
 

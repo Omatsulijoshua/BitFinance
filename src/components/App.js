@@ -166,8 +166,8 @@ function App() {
       <header className="topbar">
         <div className="topbar__inner">
           <button className="topbar__brand" type="button" onClick={openHome}>
-            <img src="/crypfinance-logo.png" alt="CrypFinance" />
-            <span className="topbar__brand-name">CrypFinance</span>
+            <img src="/logo.png" alt="BitFinance" style={{ width: '32px', height: '32px' }} />
+            <span className="topbar__brand-name">BitFinance</span>
           </button>
 
           <nav className="topbar__nav">
@@ -237,7 +237,7 @@ function App() {
                 <span className="swap-field__amount">4,231.6</span>
                 <span className="swap-field__token">
                   <span className="swap-field__token-icon swap-field__token-icon--gold" />
-                  CRYP
+                  BTF
                 </span>
               </div>
               <div className="swap-field__usd">≈ $3,839.55</div>
@@ -270,10 +270,10 @@ function App() {
       {/* ═══ FEATURES ═══ */}
       <section className="features" id="features">
         <div className="animate-on-scroll">
-          <span className="section-eyebrow">Why CrypFinance</span>
+          <span className="section-eyebrow">Why BitFinance</span>
           <h2 className="section-title">Everything you need to trade DeFi.</h2>
           <p className="section-subtitle">
-            From instant swaps to advanced charting — CrypFinance delivers
+            From instant swaps to advanced charting — BitFinance delivers
             a professional trading experience without intermediaries.
           </p>
         </div>
@@ -328,7 +328,7 @@ function App() {
         <div className="cta-card animate-on-scroll">
           <h2 className="section-title">Ready to trade smarter?</h2>
           <p className="section-subtitle">
-            Join thousands of traders already using CrypFinance for fast,
+            Join thousands of traders already using BitFinance for fast,
             secure, non-custodial crypto swaps.
           </p>
           <div className="hero__actions">
@@ -336,7 +336,7 @@ function App() {
               Launch Exchange
             </button>
             <a
-              href="https://docs.crypfinance.com"
+              href="https://docs.bitfinance.com"
               className="btn-secondary"
               target="_blank"
               rel="noreferrer"
@@ -352,8 +352,8 @@ function App() {
         <div className="footer__inner">
           <div>
             <div className="footer__brand">
-              <img src="/crypfinance-logo.png" alt="CrypFinance" />
-              <span>CrypFinance</span>
+              <img src="/logo.png" alt="BitFinance" style={{ width: '32px', height: '32px' }} />
+              <span>BitFinance</span>
             </div>
             <p className="footer__desc">
               The next-generation decentralized exchange. Trade, earn, and build
@@ -373,8 +373,8 @@ function App() {
           <div>
             <h4 className="footer__col-title">Resources</h4>
             <ul className="footer__links">
-              <li><a href="https://docs.crypfinance.com" target="_blank" rel="noreferrer">Documentation</a></li>
-              <li><a href="https://github.com/crypfinance" target="_blank" rel="noreferrer">GitHub</a></li>
+              <li><a href="https://docs.bitfinance.com" target="_blank" rel="noreferrer">Documentation</a></li>
+              <li><a href="https://github.com/bitfinance" target="_blank" rel="noreferrer">GitHub</a></li>
               <li><a href="#networks">Networks</a></li>
             </ul>
           </div>
@@ -382,21 +382,21 @@ function App() {
           <div>
             <h4 className="footer__col-title">Community</h4>
             <ul className="footer__links">
-              <li><a href="https://twitter.com/crypfinance" target="_blank" rel="noreferrer">Twitter</a></li>
-              <li><a href="https://discord.gg/crypfinance" target="_blank" rel="noreferrer">Discord</a></li>
-              <li><a href="https://t.me/crypfinance" target="_blank" rel="noreferrer">Telegram</a></li>
+              <li><a href="https://twitter.com/bitfinance" target="_blank" rel="noreferrer">Twitter</a></li>
+              <li><a href="https://discord.gg/bitfinance" target="_blank" rel="noreferrer">Discord</a></li>
+              <li><a href="https://t.me/bitfinance" target="_blank" rel="noreferrer">Telegram</a></li>
             </ul>
           </div>
         </div>
 
         <div className="footer__bottom">
           <span className="footer__copyright">
-            © {new Date().getFullYear()} CrypFinance. All rights reserved.
+            © {new Date().getFullYear()} BitFinance. All rights reserved.
           </span>
           <div className="footer__socials">
-            <a href="https://twitter.com/crypfinance" className="footer__social" target="_blank" rel="noreferrer" aria-label="Twitter">𝕏</a>
-            <a href="https://discord.gg/crypfinance" className="footer__social" target="_blank" rel="noreferrer" aria-label="Discord">◆</a>
-            <a href="https://t.me/crypfinance" className="footer__social" target="_blank" rel="noreferrer" aria-label="Telegram">✈</a>
+            <a href="https://twitter.com/bitfinance" className="footer__social" target="_blank" rel="noreferrer" aria-label="Twitter">𝕏</a>
+            <a href="https://discord.gg/bitfinance" className="footer__social" target="_blank" rel="noreferrer" aria-label="Discord">◆</a>
+            <a href="https://t.me/bitfinance" className="footer__social" target="_blank" rel="noreferrer" aria-label="Telegram">✈</a>
           </div>
         </div>
       </footer>
