@@ -74,40 +74,40 @@
   "11155111": {
     "explorerURL": "https://sepolia.etherscan.io",
     "exchange": {
-      "address": "0x2D5aA578781e5BA63571489C859EF6855e24471f"
+      "address": "0xf684a074d888f41423996f6D1D717B93A71c0639"
     },
     "btf": {
-      "address": "0xFd147FcCb4B91120650230F33b7dce896C39CFAb"
+      "address": "0xa03aca8eCe08e5541a862C3eaeb7684c7621838E"
     },
     "WETH": {
-      "address": "0x05CeabfDDC6A8287F6C36f297f3948630Cca34bd"
+      "address": "0x4342dcc68b7876cCEb53b7079D2cBc899c28615D"
     },
     "USDT": {
-      "address": "0x06c34E336f8c6B38ED9Ac3CA3159804a933F1d0f"
+      "address": "0xBFaaC536BF523f59B16187b12B6A08e8A55602e9"
     },
     "USDC": {
-      "address": "0x8a9c325aaeDfa842fC9782Ab57f97FCB57b1CC2E"
+      "address": "0x3abDbfDE08A4857f05A074936319c426F1B12ea6"
     },
     "WBTC": {
-      "address": "0x3d8AD666eeffb289b5DD7fD8431fa69Edd991Eef"
+      "address": "0x1d87de22bd6A717C28984afA58d3b5890d8e73D2"
     },
     "LINK": {
-      "address": "0x7aA601Dc2c5Cbd12aADd17D6D6A1780FFfc44afA"
+      "address": "0xfEc1D4Fa51f9f8fa68fBCa53cfFD31b103248Bf0"
     },
     "UNI": {
-      "address": "0xCbbf85886d92efE5A00140f12fA97Db31C0263DF"
+      "address": "0x2fA03D39F4Fb164E702556f4cFbe7995bCd0Fd63"
     },
     "DAI": {
-      "address": "0xdda22a9BEF1daedb0e29d1810f3e121faD6144d0"
+      "address": "0x539ca915d122d56Bc2fedE8B1E00292D4DfB63c5"
     },
     "SHIB": {
-      "address": "0xD45b4b682D736D42A9B5aDd009511584a03271A1"
+      "address": "0xe85d51a200A0610A0444e6c44d4abfE6b39c53a5"
     },
     "PEPE": {
-      "address": "0x628b7bA0eE232Aa53190b280Cad2796FD72e6A36"
+      "address": "0xa9fADC082874421E55fE57F74372b6581F1A154b"
     },
     "AAVE": {
-      "address": "0xefc5D1530B064AD03564516fFeBA1CB763254E25"
+      "address": "0x0550aE44a41245Cc624fFd6e0b94163Ee617516a"
     }
   },
   "11155420": {
