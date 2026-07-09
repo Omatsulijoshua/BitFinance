@@ -9,15 +9,15 @@
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* Brand Greens */
-  --green-900: #062117;
-  --green-800: #0B4D2C;
-  --green-700: #0F6B3C;
-  --green-600: #14A85C;
-  --green-500: #1ED760;
-  --green-400: #4AE88A;
-  --green-300: #7FF0AC;
-  --green-200: #B5F7D0;
+  /* Brand Greens - Remapped to Slate/Charcoal Grays */
+  --green-900: #0B0E11;
+  --green-800: #181A20;
+  --green-700: #1E2329;
+  --green-600: #2B3139;
+  --green-500: #C9A84C;
+  --green-400: #F0B90B;
+  --green-300: #F8D158;
+  --green-200: #FBE49E;
 
   /* Brand Golds */
   --gold-600: #8B6914;
@@ -27,21 +27,21 @@
   --gold-200: #F0E6C4;
 
   /* Neutrals */
-  --bg-base: #050A08;
-  --bg-surface: #0A1410;
-  --bg-card: rgba(11, 22, 17, 0.65);
-  --bg-card-hover: rgba(15, 30, 23, 0.8);
-  --border: rgba(201, 168, 76, 0.12);
-  --border-hover: rgba(201, 168, 76, 0.3);
-  --text-primary: #F0F5F2;
-  --text-secondary: #8A9E92;
-  --text-muted: #5A6E62;
+  --bg-base: #0B0E11;
+  --bg-surface: #181A20;
+  --bg-card: rgba(30, 35, 41, 0.65);
+  --bg-card-hover: rgba(37, 41, 48, 0.8);
+  --border: rgba(201, 168, 76, 0.15);
+  --border-hover: rgba(201, 168, 76, 0.35);
+  --text-primary: #EAECEF;
+  --text-secondary: #848E9C;
+  --text-muted: #5E6673;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #0F6B3C 0%, #14A85C 50%, #1ED760 100%);
-  --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #D4B96A 50%, #E5D49E 100%);
-  --gradient-hero: linear-gradient(135deg, #0B4D2C 0%, #C9A84C 100%);
-  --gradient-glow: radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%);
+  --gradient-primary: linear-gradient(135deg, #1E2329 0%, #2B3139 50%, #C9A84C 100%);
+  --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #F0B90B 50%, #F8D158 100%);
+  --gradient-hero: linear-gradient(135deg, #EAECEF 0%, #C9A84C 100%);
+  --gradient-glow: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
 }
 
 * {
@@ -94,9 +94,9 @@ button {
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(11, 77, 44, 0.25), transparent),
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(201, 168, 76, 0.12), transparent),
     radial-gradient(ellipse 60% 50% at 85% 15%, rgba(201, 168, 76, 0.1), transparent),
-    radial-gradient(ellipse 70% 60% at 50% 90%, rgba(15, 107, 60, 0.12), transparent),
+    radial-gradient(ellipse 70% 60% at 50% 90%, rgba(201, 168, 76, 0.08), transparent),
     var(--bg-base);
   pointer-events: none;
   z-index: 0;
@@ -134,7 +134,7 @@ button {
 .orb--green {
   width: 500px;
   height: 500px;
-  background: rgba(11, 77, 44, 0.3);
+  background: rgba(201, 168, 76, 0.08);
   top: -10%;
   left: -5%;
 }
@@ -412,13 +412,13 @@ button {
   width: 420px;
   padding: 28px;
   border-radius: 24px;
-  background: rgba(10, 20, 16, 0.8);
+  background: rgba(24, 26, 32, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border);
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.4),
-    0 0 60px rgba(11, 77, 44, 0.08);
+    0 0 60px rgba(201, 168, 76, 0.06);
   animation: fadeInUp 0.8s ease 0.3s both;
   position: relative;
 }
@@ -434,7 +434,7 @@ button {
     rgba(201, 168, 76, 0.2),
     transparent 40%,
     transparent 60%,
-    rgba(11, 77, 44, 0.2)
+    rgba(201, 168, 76, 0.1)
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -607,7 +607,7 @@ button {
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(11, 77, 44, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%);
   pointer-events: none;
   animation: glowPulse 4s ease-in-out infinite;
 }
@@ -759,9 +759,9 @@ button {
   place-items: center;
   font-size: 1.5rem;
   margin-bottom: 22px;
-  background: rgba(11, 77, 44, 0.2);
-  border: 1px solid rgba(11, 77, 44, 0.3);
-  color: var(--green-400);
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  color: var(--gold-400);
 }
 
 .feature-card__icon--gold {
@@ -955,7 +955,7 @@ button {
 .cta-card {
   padding: 80px 48px;
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(11, 77, 44, 0.3), rgba(201, 168, 76, 0.08));
+  background: linear-gradient(135deg, rgba(30, 35, 41, 0.85), rgba(201, 168, 76, 0.05));
   border: 1px solid var(--border);
   position: relative;
   overflow: hidden;
@@ -966,7 +966,7 @@ button {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 50%, rgba(11, 77, 44, 0.2), transparent 50%),
+    radial-gradient(circle at 20% 50%, rgba(201, 168, 76, 0.08), transparent 50%),
     radial-gradient(circle at 80% 50%, rgba(201, 168, 76, 0.1), transparent 50%);
   pointer-events: none;
 }
