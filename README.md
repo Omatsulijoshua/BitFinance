@@ -157,3 +157,27 @@ npx hardhat test
   - `fillOrder`: Executes trades against active limit orders, automatically routing fees to the configured fee account.
   - `setFeePercent(uint256)`: Modifies maker/taker transaction fee percentages on-chain (restricted to contract owner).
   - `setFeeAccount(address)`: Modifies the fee collection address on-chain (restricted to contract owner).
+
+---
+
+## 📊 Token Price Calculation
+
+The exchange uses a combination of on-chain trading data and real-time public market APIs to compute token valuations dynamically:
+
+### 1. BTF Token USD Valuation
+The USD price of the custom **BTF** token is derived from Ethereum's real-time price feed and exchange order-book trades:
+$$\text{BTF Price (USD)} = \text{ETH Price (USD)} \times \text{BTF/WETH Rate}$$
+* **ETH Price (USD)**: Fetched dynamically from the public [CoinCap API](https://api.coincap.io/v2/assets) (polling periodically).
+* **BTF/WETH Rate**:
+  * **On-Chain Trades Exist**: Uses the exchange rate of the **latest filled order** on the order book.
+  * **No Trades Exist**: Defaults to a base rate of `0.00025 WETH` per BTF.
+
+### 2. Spot Trading Interface Prices
+Prices on the limit order book are calculated as the ratio of tokens traded:
+$$\text{Price} = \frac{\text{Amount of WETH (token1)}}{\text{Amount of BTF (token0)}}$$
+This calculation is handled in the frontend Redux store ([selectors.js](src/store/selectors.js)) using formatted Ether units, ensuring precise decimal division.
+
+### 3. Uniswap-Style Swap Rates
+The exchange rate for token swaps in the **Swap Widget** dynamically mirrors the latest spot trading price:
+* **Dynamic rate**: Automatically sets `1 WETH = X BTF` based on the price of the latest filled on-chain trade.
+* **Fallback**: Defaults to a mock exchange rate of `1 WETH = 12.5 BTF` if no trades have occurred.
