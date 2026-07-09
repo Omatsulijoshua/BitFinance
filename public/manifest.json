@@ -1,25 +1,25 @@
 {
-  "short_name": "Crypfinance",
-  "name": "Crypfinance Decentralized Exchange",
+  "short_name": "BitFinance",
+  "name": "BitFinance Decentralized Exchange",
   "icons": [
     {
-      "src": "crypfinance-logo.png",
+      "src": "bitfinance-logo.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "crypfinance-logo.png",
+      "src": "bitfinance-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "crypfinance-logo.png",
+      "src": "bitfinance-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#053f2c",
+  "theme_color": "#0B0E11",
   "background_color": "#ffffff"
 }

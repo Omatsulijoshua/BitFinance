@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import logo from '../assets/logo.png';
 import eth from '../assets/eth.svg';
 
 import {
