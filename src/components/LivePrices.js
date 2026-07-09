@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 const POPULAR_ASSETS = [
@@ -21,7 +21,7 @@ const LivePrices = () => {
   const filledOrders = useSelector(state => state.exchange.filledOrders.data || []);
 
   // Fetch prices from CoinCap
-  const fetchLivePrices = async () => {
+  const fetchLivePrices = useCallback(async () => {
     try {
       const response = await fetch('https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,binance-coin,solana,ripple,cardano,polkadot,dogecoin,chainlink');
       if (!response.ok) throw new Error('Network response not ok');
@@ -56,32 +56,34 @@ const LivePrices = () => {
 
       newPrices['BTF'] = {
         price: btfPrice,
-        change: 1.25, // Mock 24h change for BTF
-        volume: 84000 // Mock 24h volume for BTF
+        change: 0.85,
+        volume: 76000
       };
 
       setPrevPrices(prev => {
-        // Store previous prices for animations
-        const saved = {};
-        Object.keys(prev).forEach(k => {
-          saved[k] = prev[k].price;
+        const updatedPrev = {};
+        Object.keys(newPrices).forEach(sym => {
+          updatedPrev[sym] = prev[sym] || newPrices[sym].price;
         });
-        return saved;
+        return updatedPrev;
       });
 
       setPrices(newPrices);
       setLoading(false);
-    } catch (err) {
-      console.error('Failed to fetch CoinCap prices:', err);
-      // Generate fallback prices
-      const fallback = {};
-      POPULAR_ASSETS.forEach(asset => {
-        fallback[asset.symbol] = {
-          price: asset.fallbackPrice * (1 + (Math.random() - 0.5) * 0.002),
-          change: (Math.random() - 0.4) * 5,
-          volume: asset.fallbackPrice * 1250
-        };
-      });
+    } catch (error) {
+      console.error('Error fetching live prices:', error);
+      // Fallback values if API fails
+      const fallback = {
+        'BTC': { price: 65000, change: 1.2, volume: 28000000000 },
+        'ETH': { price: 3500, change: -0.5, volume: 15000000000 },
+        'BNB': { price: 580, change: 0.8, volume: 1200000000 },
+        'SOL': { price: 140, change: 4.5, volume: 3100000000 },
+        'XRP': { price: 0.48, change: -1.1, volume: 900000000 },
+        'ADA': { price: 0.38, change: 0.2, volume: 300000000 },
+        'DOT': { price: 5.8, change: -2.3, volume: 180000000 },
+        'DOGE': { price: 0.12, change: 3.1, volume: 1100000000 },
+        'LINK': { price: 15.2, change: 0.5, volume: 350000000 }
+      };
 
       let btfWethRate = 0.00025;
       if (filledOrders.length > 0) {
@@ -99,13 +101,13 @@ const LivePrices = () => {
       setPrices(fallback);
       setLoading(false);
     }
-  };
+  }, [filledOrders]);
 
   useEffect(() => {
     fetchLivePrices();
     const interval = setInterval(fetchLivePrices, 8000);
     return () => clearInterval(interval);
-  }, [filledOrders]);
+  }, [fetchLivePrices]);
 
   const getPriceDirection = (symbol, currentPrice) => {
     const prev = prevPrices[symbol];

@@ -25,7 +25,6 @@ const SwapWidget = () => {
   const cancelledOrders = useSelector(state => state.exchange.cancelledOrders.data || []);
 
   const tokens = useSelector(state => state.tokens.contracts);
-  const symbols = useSelector(state => state.tokens.symbols);
   const tokenBalances = useSelector(state => state.tokens.balances);
   const exchangeBalances = useSelector(state => state.exchange.balances);
 

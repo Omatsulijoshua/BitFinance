@@ -33,7 +33,6 @@ function Exchange({ onBack }) {
 
  const [exchangeView, setExchangeView] = useState('trade')
  const dispatch = useDispatch()
- const account = useSelector(state => state.provider.account)
  const symbols = useSelector(state => state.tokens.symbols)
 
   const loadBlockchainData = useCallback(async () => {

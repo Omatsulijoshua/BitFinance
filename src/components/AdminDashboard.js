@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ethers } from 'ethers';
 import { loadBalances } from '../store/interactions';
@@ -30,7 +30,7 @@ const AdminDashboard = () => {
 
   const isOwner = account && contractOwner && account.toLowerCase() === contractOwner.toLowerCase();
 
-  const loadAdminData = async () => {
+  const loadAdminData = useCallback(async () => {
     if (!exchange || !tokens || tokens.length < 2) return;
 
     try {
@@ -63,14 +63,14 @@ const AdminDashboard = () => {
     } catch (err) {
       console.error("Failed to load admin dashboard data:", err);
     }
-  };
+  }, [exchange, tokens]);
 
   useEffect(() => {
     loadAdminData();
     if (account && !faucetAddress) {
       setFaucetAddress(account);
     }
-  }, [exchange, tokens, account]);
+  }, [account, faucetAddress, loadAdminData]);
 
   const handleUpdateFeePercent = async (e) => {
     e.preventDefault();
