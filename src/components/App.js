@@ -166,7 +166,22 @@ function App() {
       <header className="topbar">
         <div className="topbar__inner">
           <button className="topbar__brand" type="button" onClick={openHome}>
-            <img src="/logo.png" alt="BitFinance" style={{ width: '32px', height: '32px' }} />
+            <div style={{ 
+              width: '32px', 
+              height: '32px', 
+              borderRadius: '50%', 
+              background: 'linear-gradient(135deg, var(--clr-gold) 0%, #B3913B 100%)', 
+              color: 'var(--clr-bg)', 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              fontSize: '18px', 
+              fontWeight: 'bold',
+              marginRight: '8px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            }}>
+              B
+            </div>
             <span className="topbar__brand-name">BitFinance</span>
           </button>
 
@@ -352,7 +367,22 @@ function App() {
         <div className="footer__inner">
           <div>
             <div className="footer__brand">
-              <img src="/logo.png" alt="BitFinance" style={{ width: '32px', height: '32px' }} />
+              <div style={{ 
+                width: '32px', 
+                height: '32px', 
+                borderRadius: '50%', 
+                background: 'linear-gradient(135deg, var(--clr-gold) 0%, #B3913B 100%)', 
+                color: 'var(--clr-bg)', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                fontSize: '18px', 
+                fontWeight: 'bold',
+                marginRight: '8px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+              }}>
+                B
+              </div>
               <span>BitFinance</span>
             </div>
             <p className="footer__desc">

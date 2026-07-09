@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import Blockies from 'react-blockies'
 
-import logo from '../assets/logo.png'
+// Removed old logo import
 import eth from '../assets/eth.svg'
 
 import { loadAccount, getEthereumProvider } from '../store/interactions'
@@ -200,7 +200,22 @@ const Navbar = ({ onBack }) => {
               ←
             </button>
             )}
-            <img src={logo} className="logo" alt="BitFinance Logo"></img>
+            <div style={{ 
+              width: '24px', 
+              height: '24px', 
+              borderRadius: '50%', 
+              background: 'linear-gradient(135deg, var(--clr-gold) 0%, #B3913B 100%)', 
+              color: 'var(--clr-bg)', 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              fontSize: '13px', 
+              fontWeight: 'bold',
+              marginRight: '8px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            }}>
+              B
+            </div>
             <h1>BITFINANCE</h1>
           </div>
 

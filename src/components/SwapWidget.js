@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ethers } from 'ethers';
 import { getEthereumProvider, transferTokens, fillOrder, loadBalances } from '../store/interactions';
 import ethLogo from '../assets/eth.svg';
-import btfLogo from '../assets/logo.png';
+// Removed old btfLogo import
 
 const SwapWidget = () => {
   const [fromAmount, setFromAmount] = useState('');
@@ -255,7 +255,20 @@ const SwapWidget = () => {
                 style={{ background: 'transparent', border: 'none', color: '#fff', fontSize: '1.5rem', fontWeight: '600', width: '70%', outline: 'none' }}
               />
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.07)', padding: '6px 12px', borderRadius: '12px', fontWeight: '600', color: '#fff' }}>
-                <img src={btfLogo} alt="BTF" style={{ width: '18px', height: '18px', borderRadius: '50%' }} />
+                <div style={{ 
+                  width: '18px', 
+                  height: '18px', 
+                  borderRadius: '50%', 
+                  background: 'linear-gradient(135deg, var(--clr-gold) 0%, #B3913B 100%)', 
+                  color: 'var(--clr-bg)', 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  fontSize: '10px', 
+                  fontWeight: 'bold'
+                }}>
+                  B
+                </div>
                 BTF
               </span>
             </div>

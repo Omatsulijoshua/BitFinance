@@ -121,10 +121,35 @@ const Balance = () => {
       {/* Deposit/Withdraw Component 1 (DApp) */}
 
       <div className='exchange__transfers--form'>
-        <div className='flex-between'>
-          <p><small>Token</small><img src={logo} alt="Token Logo" />{symbols && symbols[0]}</p>
-          <p><small>Wallet</small>{tokenBalances && tokenBalances[0]}</p>
-          <p><small>Exchange</small>{exchangeBalances && exchangeBalances[0]}</p>
+        <div className='flex-between' style={{ borderBottom: '1px solid var(--clr-border)', paddingBottom: '10px', marginBottom: '10px' }}>
+          <div className="balance-col" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <span style={{ fontSize: '0.65rem', color: 'var(--clr-text-secondary)', textTransform: 'uppercase' }}>Token</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600', color: 'var(--clr-text-primary)', fontSize: '0.85rem' }}>
+              <div style={{ 
+                width: '18px', 
+                height: '18px', 
+                borderRadius: '50%', 
+                background: 'linear-gradient(135deg, var(--clr-gold) 0%, #B3913B 100%)', 
+                color: 'var(--clr-bg)', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                fontSize: '10px', 
+                fontWeight: 'bold'
+              }}>
+                B
+              </div>
+              <span>{symbols && symbols[0]}</span>
+            </div>
+          </div>
+          <div className="balance-col" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
+            <span style={{ fontSize: '0.65rem', color: 'var(--clr-text-secondary)', textTransform: 'uppercase' }}>Wallet</span>
+            <span style={{ fontWeight: '600', color: 'var(--clr-text-primary)', fontSize: '0.85rem' }}>{tokenBalances && tokenBalances[0]}</span>
+          </div>
+          <div className="balance-col" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
+            <span style={{ fontSize: '0.65rem', color: 'var(--clr-text-secondary)', textTransform: 'uppercase' }}>Exchange</span>
+            <span style={{ fontWeight: '600', color: 'var(--clr-text-primary)', fontSize: '0.85rem' }}>{exchangeBalances && exchangeBalances[0]}</span>
+          </div>
         </div>
 
         <form onSubmit={isDeposit ? (e) => depositHandler(e, tokens[0]) : (e) => withdrawHandler(e, tokens[0])}>
@@ -159,10 +184,22 @@ const Balance = () => {
       {/* Deposit/Withdraw Component 2 (mETH) */}
 
       <div className='exchange__transfers--form'>
-        <div className='flex-between'>
-          <p><small>Token</small><img src={eth} alt="Token Logo" />{symbols && symbols[1]}</p>
-          <p><small>Wallet</small>{tokenBalances && tokenBalances[1]}</p>
-          <p><small>Exchange</small>{exchangeBalances && exchangeBalances[1]}</p>
+        <div className='flex-between' style={{ borderBottom: '1px solid var(--clr-border)', paddingBottom: '10px', marginBottom: '10px' }}>
+          <div className="balance-col" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <span style={{ fontSize: '0.65rem', color: 'var(--clr-text-secondary)', textTransform: 'uppercase' }}>Token</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600', color: 'var(--clr-text-primary)', fontSize: '0.85rem' }}>
+              <img src={eth} alt="Token Logo" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+              <span>{symbols && symbols[1]}</span>
+            </div>
+          </div>
+          <div className="balance-col" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
+            <span style={{ fontSize: '0.65rem', color: 'var(--clr-text-secondary)', textTransform: 'uppercase' }}>Wallet</span>
+            <span style={{ fontWeight: '600', color: 'var(--clr-text-primary)', fontSize: '0.85rem' }}>{tokenBalances && tokenBalances[1]}</span>
+          </div>
+          <div className="balance-col" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
+            <span style={{ fontSize: '0.65rem', color: 'var(--clr-text-secondary)', textTransform: 'uppercase' }}>Exchange</span>
+            <span style={{ fontWeight: '600', color: 'var(--clr-text-primary)', fontSize: '0.85rem' }}>{exchangeBalances && exchangeBalances[1]}</span>
+          </div>
         </div>
 
         <form onSubmit={isDeposit ? (e) => depositHandler(e, tokens[1]) : (e) => withdrawHandler(e, tokens[1])}>
