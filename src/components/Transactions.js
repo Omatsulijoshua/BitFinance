@@ -16,20 +16,7 @@ const Transactions = () => {
 
   const dispatch = useDispatch()
 
-  const tradeRef = useRef(null)
-  const orderRef = useRef(null)
-
-  const tabHandler = (e) => {
-    if (e.target.className !== orderRef.current.className) {
-      e.target.className = 'tab tab--active'
-      orderRef.current.className = 'tab'
-      setShowMyOrders(false)
-    } else {
-      e.target.className = 'tab tab--active'
-      tradeRef.current.className = 'tab'
-      setShowMyOrders(true)
-    }
-  }
+  // Refs and tabHandler removed, using reactive state toggling directly
 
   const cancelHandler = (order) => {
     cancelOrder(provider, exchange, order, dispatch)
@@ -42,9 +29,39 @@ const Transactions = () => {
           <div className='component__header flex-between'>
             <h2>My Orders</h2>
 
-            <div className='tabs'>
-              <button onClick={tabHandler} ref={orderRef} className='tab tab--active'>Orders</button>
-              <button onClick={tabHandler} ref={tradeRef} className='tab'>Trades</button>
+            <div style={{ display: 'flex', gap: '4px', background: 'var(--clr-panel-alt)', padding: '2px', borderRadius: 'var(--radius-md)' }}>
+              <button 
+                onClick={() => setShowMyOrders(true)} 
+                style={{ 
+                  padding: '4px 12px', 
+                  fontSize: '0.7rem', 
+                  borderRadius: 'var(--radius-sm)', 
+                  background: showMyOrders ? 'var(--clr-panel-hover)' : 'transparent', 
+                  color: showMyOrders ? 'var(--clr-gold)' : 'var(--clr-text-secondary)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Orders
+              </button>
+              <button 
+                onClick={() => setShowMyOrders(false)} 
+                style={{ 
+                  padding: '4px 12px', 
+                  fontSize: '0.7rem', 
+                  borderRadius: 'var(--radius-sm)', 
+                  background: !showMyOrders ? 'var(--clr-panel-hover)' : 'transparent', 
+                  color: !showMyOrders ? 'var(--clr-gold)' : 'var(--clr-text-secondary)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Trades
+              </button>
             </div>
           </div>
 
@@ -98,9 +115,39 @@ const Transactions = () => {
           <div className='component__header flex-between'>
             <h2>My Transactions</h2>
 
-            <div className='tabs'>
-              <button onClick={tabHandler} ref={orderRef} className='tab tab--active'>Orders</button>
-              <button onClick={tabHandler} ref={tradeRef} className='tab'>Trades</button>
+            <div style={{ display: 'flex', gap: '4px', background: 'var(--clr-panel-alt)', padding: '2px', borderRadius: 'var(--radius-md)' }}>
+              <button 
+                onClick={() => setShowMyOrders(true)} 
+                style={{ 
+                  padding: '4px 12px', 
+                  fontSize: '0.7rem', 
+                  borderRadius: 'var(--radius-sm)', 
+                  background: showMyOrders ? 'var(--clr-panel-hover)' : 'transparent', 
+                  color: showMyOrders ? 'var(--clr-gold)' : 'var(--clr-text-secondary)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Orders
+              </button>
+              <button 
+                onClick={() => setShowMyOrders(false)} 
+                style={{ 
+                  padding: '4px 12px', 
+                  fontSize: '0.7rem', 
+                  borderRadius: 'var(--radius-sm)', 
+                  background: !showMyOrders ? 'var(--clr-panel-hover)' : 'transparent', 
+                  color: !showMyOrders ? 'var(--clr-gold)' : 'var(--clr-text-secondary)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Trades
+              </button>
             </div>
           </div>
 

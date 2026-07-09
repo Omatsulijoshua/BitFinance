@@ -278,7 +278,27 @@ const Navbar = ({ onBack }) => {
               </button>
             </div>
           ) : (
-            <button className="button" onClick={connectHandler}>Connect</button>
+            <button 
+              className="button" 
+              onClick={connectHandler}
+              style={{
+                margin: '0',
+                padding: '8px 16px',
+                background: 'linear-gradient(135deg, var(--clr-gold) 0%, #B3913B 100%)',
+                color: 'var(--clr-bg)',
+                fontWeight: '600',
+                fontSize: '0.8rem',
+                border: 'none',
+                borderRadius: 'var(--radius-lg)',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(201, 168, 76, 0.25)',
+                transition: 'all 0.2s ease',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
+              }}
+            >
+              Connect Wallet
+            </button>
           )}
         </div>
       </div>

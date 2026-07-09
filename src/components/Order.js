@@ -16,19 +16,8 @@ const Order = () => {
 
   const dispatch = useDispatch()
 
-  const buyRef = useRef(null)
-  const sellRef = useRef(null)
-
-  const tabHandler = (e) => {
-    if(e.target.className !== buyRef.current.className) {
-      e.target.className = 'tab tab--active sell-tab'
-      buyRef.current.className = 'tab'
-      setIsBuy(false)
-    } else {
-      e.target.className = 'tab tab--active'
-      sellRef.current.className = 'tab'
-      setIsBuy(true)
-    }
+  const selectTab = (buyState) => {
+    setIsBuy(buyState)
   }
 
   const prefillAmount = (percentage) => {
@@ -81,9 +70,39 @@ const Order = () => {
     <div className="component exchange__orders">
       <div className='component__header flex-between'>
         <h2>New Order</h2>
-        <div className='tabs'>
-          <button onClick={tabHandler} ref={buyRef} className='tab tab--active'>Buy</button>
-          <button onClick={tabHandler} ref={sellRef} className='tab'>Sell</button>
+        <div style={{ display: 'flex', gap: '4px', background: 'var(--clr-panel-alt)', padding: '2px', borderRadius: 'var(--radius-md)' }}>
+          <button 
+            onClick={() => selectTab(true)} 
+            style={{ 
+              padding: '4px 12px', 
+              fontSize: '0.7rem', 
+              borderRadius: 'var(--radius-sm)', 
+              background: isBuy ? 'var(--clr-buy-dim)' : 'transparent', 
+              color: isBuy ? 'var(--clr-buy)' : 'var(--clr-text-secondary)',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: '600',
+              textTransform: 'uppercase'
+            }}
+          >
+            Buy
+          </button>
+          <button 
+            onClick={() => selectTab(false)} 
+            style={{ 
+              padding: '4px 12px', 
+              fontSize: '0.7rem', 
+              borderRadius: 'var(--radius-sm)', 
+              background: !isBuy ? 'var(--clr-sell-dim)' : 'transparent', 
+              color: !isBuy ? 'var(--clr-sell)' : 'var(--clr-text-secondary)',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: '600',
+              textTransform: 'uppercase'
+            }}
+          >
+            Sell
+          </button>
         </div>
       </div>
 
